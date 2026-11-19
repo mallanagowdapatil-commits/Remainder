@@ -1,0 +1,211 @@
+/* Auth Pages Layout (Login, Registration, Password Reset) */
+
+.auth-wrapper {
+  min-height: calc(100vh - var(--header-height));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem 1rem;
+  background: radial-gradient(circle at top right, var(--color-primary-light), transparent 40%),
+              radial-gradient(circle at bottom left, var(--color-teal-light), transparent 40%),
+              var(--color-neutral-50);
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 480px;
+  background: var(--color-white);
+  border: 1px solid var(--color-neutral-200);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem 2rem;
+  box-shadow: var(--shadow-xl);
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.auth-header h1 {
+  font-size: 1.625rem;
+  margin-bottom: 0.5rem;
+}
+
+.auth-header p {
+  color: var(--color-neutral-500);
+  font-size: 0.9375rem;
+}
+
+/* Role Selector Pills */
+.role-selector {
+  display: flex;
+  background-color: var(--color-neutral-100);
+  border-radius: var(--radius-md);
+  padding: 0.3125rem;
+  margin-bottom: 1.75rem;
+  gap: 0.25rem;
+}
+
+.role-option {
+  flex: 1;
+  text-align: center;
+  padding: 0.625rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  color: var(--color-neutral-600);
+  transition: all var(--transition-fast);
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.role-option.active {
+  background-color: var(--color-white);
+  color: var(--color-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Password Input with Visibility Toggle */
+.input-with-action {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-with-action input {
+  padding-right: 2.75rem;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 0.75rem;
+  background: none;
+  border: none;
+  color: var(--color-neutral-400);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem;
+}
+
+.toggle-password:hover {
+  color: var(--color-neutral-700);
+}
+
+/* Password Strength Meter */
+.strength-meter {
+  height: 4px;
+  background-color: var(--color-neutral-200);
+  border-radius: var(--radius-full);
+  margin-top: 0.5rem;
+  overflow: hidden;
+  display: flex;
+}
+
+.strength-bar {
+  height: 100%;
+  width: 0%;
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+.strength-text {
+  font-size: 0.75rem;
+  color: var(--color-neutral-500);
+  margin-top: 0.25rem;
+  text-align: right;
+}
+
+/* Demo Quick Fill Box (Helpful for Mini-Project College Demo) */
+.demo-credentials-box {
+  background-color: var(--color-primary-subtle);
+  border: 1px dashed var(--color-primary);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  margin-top: 1.5rem;
+  font-size: 0.8125rem;
+}
+
+.demo-credentials-box h4 {
+  font-size: 0.8125rem;
+  color: var(--color-primary-hover);
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.demo-buttons {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.demo-btn {
+  padding: 0.3125rem 0.625rem;
+  font-size: 0.75rem;
+  background: var(--color-white);
+  border: 1px solid var(--color-neutral-300);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  color: var(--color-neutral-700);
+  transition: all var(--transition-fast);
+}
+
+.demo-btn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  background-color: var(--color-primary-light);
+}
+
+/* Terms Checkbox */
+.terms-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin: 1.25rem 0;
+  font-size: 0.875rem;
+}
+
+.terms-row input[type="checkbox"] {
+  margin-top: 0.2rem;
+  accent-color: var(--color-primary);
+  cursor: pointer;
+}
+
+/* Form Divider */
+.auth-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 1.5rem 0;
+  color: var(--color-neutral-400);
+  font-size: 0.8125rem;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid var(--color-neutral-200);
+}
+
+.auth-divider span {
+  padding: 0 0.75rem;
+}
+
+.auth-footer {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.875rem;
+}
+
+@media (max-width: 480px) {
+  .auth-card {
+    padding: 1.75rem 1.25rem;
+  }
+}

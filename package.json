@@ -1,0 +1,27 @@
+{
+  "name": "medication-reminder-tracker",
+  "version": "1.0.0",
+  "description": "Medication Reminder and Adherence Tracker with OCR and Ethereum Sepolia Blockchain Integration",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "serve": "node server.js",
+    "test": "node verify-all.js",
+    "verify": "node verify-all.js"
+  },
+  "keywords": [
+    "medication-reminder",
+    "patient-adherence",
+    "ocr",
+    "tesseract-js",
+    "blockchain",
+    "solidity",
+    "ethereum-sepolia",
+    "pwa",
+    "indexeddb",
+    "supabase"
+  ],
+  "author": "MediTrack Health",
+  "license": "MIT"
+}

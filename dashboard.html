@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0284c7">
+  <link rel="manifest" href="pwa/manifest.json">
+  <title>Dashboard | MediTrack</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/dashboard.css">
+</head>
+<body>
+
+  <div class="app-layout">
+
+    <!-- Mobile Sidebar Backdrop -->
+    <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+
+    <!-- Collapsible Sidebar -->
+    <aside class="app-sidebar" id="app-sidebar">
+      <div class="sidebar-header">
+        <a href="dashboard.html" class="sidebar-brand">
+          <div class="logo-icon" style="width: 32px; height: 32px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M4.93 19.07l14.14-14.14"/>
+            </svg>
+          </div>
+          <span>MediTrack</span>
+        </a>
+      </div>
+
+      <ul class="sidebar-menu">
+        <li class="menu-category">Schedule & Tracking</li>
+        <li class="menu-item">
+          <button class="menu-link active" data-target="dashboard-view">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <rect x="3" y="3" width="7" height="7"></rect>
+              <rect x="14" y="3" width="7" height="7"></rect>
+              <rect x="14" y="14" width="7" height="7"></rect>
+              <rect x="3" y="14" width="7" height="7"></rect>
+            </svg>
+            <span data-i18n="nav_dashboard">Dashboard</span>
+            <span class="menu-badge" id="pending-badge-count">0</span>
+          </button>
+        </li>
+        <li class="menu-item">
+          <button class="menu-link" data-target="medicines-view">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M10.5 20.5l10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7z"></path>
+              <path d="M8.5 8.5l7 7"></path>
+            </svg>
+            <span data-i18n="nav_medicines">My Medicines</span>
+          </button>
+        </li>
+        <li class="menu-item">
+          <button class="menu-link" data-target="add-medicine-view">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="16"></line>
+              <line x1="8" y1="12" x2="16" y2="12"></line>
+            </svg>
+            <span data-i18n="nav_add_medicine">Add Medicine</span>
+          </button>
+        </li>
+
+        <li class="menu-category">Health Tools</li>
+        <li class="menu-item">
+          <button class="menu-link" data-target="ocr-view">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+              <circle cx="8.5" cy="8.5" r="1.5"></circle>
+              <polyline points="21 15 16 10 5 21"></polyline>
+            </svg>
+            <span data-i18n="nav_scanner">Prescription Scanner</span>
+          </button>
+        </li>
+        <li class="menu-item">
+          <button class="menu-link" data-target="history-view">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 14 14"></polyline>
+            </svg>
+            <span data-i18n="nav_history">Medication History</span>
+          </button>
+        </li>
+        <li class="menu-item">
+          <button class="menu-link" data-target="blockchain-view">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+              <polyline points="2 17 12 22 22 17"></polyline>
+              <polyline points="2 12 12 17 22 12"></polyline>
+            </svg>
+            <span data-i18n="nav_blockchain">Verification Hub</span>
+          </button>
+        </li>
+
+        <li class="menu-category">Care & Services</li>
+        <li class="menu-item">
+          <button class="menu-link" data-target="caregiver-view">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+            <span data-i18n="nav_caregiver">Caregiver Hub</span>
+          </button>
+        </li>
+        <li class="menu-item">
+          <button class="menu-link" data-target="pharmacy-view">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+              <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+            <span data-i18n="nav_pharmacy">Pharmacy Access</span>
+          </button>
+        </li>
+
+        <li class="menu-category">Settings</li>
+        <li class="menu-item">
+          <button class="menu-link" data-target="language-view">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="2" y1="12" x2="22" y2="12"></line>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+            </svg>
+            <span data-i18n="nav_language">Language Settings</span>
+          </button>
+        </li>
+        <li class="menu-item">
+          <button class="menu-link" data-target="profile-view">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <span data-i18n="nav_profile">Profile</span>
+          </button>
+        </li>
+      </ul>
+
+      <!-- User Info & Logout Snippet -->
+      <div class="sidebar-footer">
+        <div class="user-snippet">
+          <div class="user-avatar" id="sidebar-user-avatar">P</div>
+          <div class="user-meta">
+            <div class="user-name" id="sidebar-user-name">Patient User</div>
+            <div class="user-role">
+              <span class="badge-dot" style="background-color: var(--color-success);"></span>
+              <span id="sidebar-user-role">PATIENT</span>
+            </div>
+          </div>
+          <button class="logout-btn logout-trigger" title="Log out">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+              <polyline points="16 17 21 12 16 7"></polyline>
+              <line x1="21" y1="12" x2="9" y2="12"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Workspace -->
+    <div class="app-main">
+
+      <!-- Top Header -->
+      <header class="app-header">
+        <div class="header-left">
+          <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Toggle navigation">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+          <div class="page-title-box">
+            <h2 id="current-view-title" data-i18n="dash_title">Patient Dashboard</h2>
+            <p id="current-view-desc" data-i18n="dash_subtitle">Overview of daily schedules, adherence and pending acknowledgements</p>
+          </div>
+        </div>
+
+        <div class="header-right">
+          <span class="badge badge-taken" id="connection-status-pill" title="Network status">
+            <span class="badge-dot"></span> Online
+          </span>
+          <button id="notification-toggle-btn" class="btn btn-secondary btn-sm" onclick="ReminderEngine.requestNotificationPermission()" title="Enable or manage browser alerts">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
+            Enable Alerts
+          </button>
+          <div class="live-clock-pill" id="live-clock">
+            Loading time...
+          </div>
+          <button class="quick-lang-btn" id="quick-lang-toggle" title="Switch Language">
+            English
+          </button>
+        </div>
+      </header>
+
+      <!-- Dynamic Views Container -->
+      <main class="app-content">
+
+        <!-- ============================================== -->
+        <!-- VIEW 01: DASHBOARD -->
+        <!-- ============================================== -->
+        <section class="view-section active-view" id="dashboard-view">
+          
+          <!-- Key Statistics Row -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-icon primary">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M10.5 20.5l10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7z"></path>
+                  <path d="M8.5 8.5l7 7"></path>
+                </svg>
+              </div>
+              <div class="stat-info">
+                <div class="stat-value" id="stat-active-meds">0</div>
+                <div class="stat-label" data-i18n="stat_active_meds">Active Medications</div>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon teal">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+              </div>
+              <div class="stat-info">
+                <div class="stat-value" id="stat-today-doses">0</div>
+                <div class="stat-label" data-i18n="stat_today_doses">Scheduled Doses Today</div>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon warning">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 14 14"></polyline>
+                </svg>
+              </div>
+              <div class="stat-info">
+                <div class="stat-value" id="stat-pending-count">0</div>
+                <div class="stat-label" data-i18n="stat_pending">Pending Doses</div>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon success">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </div>
+              <div class="stat-info">
+                <div class="stat-value" id="dash-adherence-stat">100%</div>
+                <div class="stat-label" data-i18n="stat_adherence">Adherence Rate</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Intake Notice Banner -->
+          <div class="warning-banner" style="background-color: var(--color-primary-subtle); border-color: var(--color-primary); color: var(--color-neutral-800);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" style="flex-shrink: 0; margin-top: 2px;">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="16" x2="12" y2="12"></line>
+              <line x1="12" y1="8" x2="12.01" y2="8"></line>
+            </svg>
+            <div>
+              <strong>Intake Confirmation:</strong> Tick the checkbox to confirm dose intake. Dismissing or snoozing keeps the dose pending.
+              <span class="text-xs text-muted" style="display: block; margin-top: 0.25rem;">Note: Browser notifications require the browser to remain open or running in the background.</span>
+            </div>
+          </div>
+
+          <!-- Today's Schedule Timeline -->
+          <div class="section-heading-row">
+            <div>
+              <h3 data-i18n="today_schedule_title">Today's Medication Schedule</h3>
+              <p class="text-xs text-muted" data-i18n="today_schedule_sub">Confirm doses as you take them to record accurate timestamps</p>
+            </div>
+            <button class="btn btn-secondary btn-sm" onclick="if(typeof activeMedicines!=='undefined') renderDashboardScheduleTimeline(activeMedicines); Toast.show('Refreshed schedule.', 'info', 'Schedule')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path>
+              </svg>
+              <span data-i18n="btn_refresh">Refresh</span>
+            </button>
+          </div>
+
+          <div class="timeline-list" id="today-timeline-container">
+            <!-- Dynamically populated by dashboard.js renderDashboardScheduleTimeline() -->
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- VIEW 02: MY MEDICATIONS -->
+        <!-- ============================================== -->
+        <section class="view-section" id="medicines-view">
+          <div class="flex justify-between items-center" style="margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+            <div class="search-bar-wrapper" style="flex: 1; max-width: 400px;">
+              <input type="text" id="med-search-input" class="form-control" placeholder="Search medicines by name..." aria-label="Search medications">
+            </div>
+            <button class="btn btn-primary" onclick="document.querySelector('.menu-link[data-target=\\'add-medicine-view\\']').click()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+              <span data-i18n="btn_add_medicine">Add New Medicine</span>
+            </button>
+          </div>
+
+          <div class="meds-grid" id="meds-grid-container">
+            <!-- Populated by medicines.js -->
+          </div>
+
+          <div id="meds-empty-notice" class="text-center text-muted" style="display: none; padding: 3rem 0;">
+            No medications found.
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- VIEW 03: ADD NEW MEDICATION -->
+        <!-- ============================================== -->
+        <section class="view-section" id="add-medicine-view">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem;">
+            
+            <div class="card">
+              <div class="card-header">
+                <h3>Schedule New Medication</h3>
+                <span class="badge badge-pending">New Entry</span>
+              </div>
+
+              <form id="add-medicine-form" novalidate>
+                <div class="form-group">
+                  <label for="med-name" class="form-label required" data-i18n="form_med_name">Medicine Name</label>
+                  <input type="text" id="med-name" class="form-control" placeholder="e.g. Paracetamol, Metformin" required>
+                </div>
+
+                <div class="flex gap-3" style="flex-wrap: wrap;">
+                  <div class="form-group" style="flex: 1; min-width: 140px;">
+                    <label for="med-dosage" class="form-label required" data-i18n="form_dosage">Dosage</label>
+                    <input type="text" id="med-dosage" class="form-control" placeholder="e.g. 500 mg" required>
+                  </div>
+                  <div class="form-group" style="flex: 1; min-width: 140px;">
+                    <label for="med-type" class="form-label required" data-i18n="form_type">Form / Type</label>
+                    <select id="med-type" class="form-control">
+                      <option value="tablet">Tablet</option>
+                      <option value="capsule">Capsule</option>
+                      <option value="syrup">Syrup (Liquid)</option>
+                      <option value="injection">Injection</option>
+                      <option value="drops">Drops</option>
+                      <option value="inhaler">Inhaler</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="med-frequency" class="form-label required" data-i18n="form_frequency">Schedule Frequency</label>
+                  <select id="med-frequency" class="form-control">
+                    <option value="once_daily">Once Daily (1 dose/day)</option>
+                    <option value="twice_daily">Twice Daily (2 doses/day)</option>
+                    <option value="thrice_daily">Three Times Daily (3 doses/day)</option>
+                    <option value="custom">Custom Timings</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label required" data-i18n="form_dose_times">Scheduled Dose Times</label>
+                  <div id="timings-container" style="background-color: var(--color-neutral-50); padding: 0.75rem; border-radius: var(--radius-md); border: 1px solid var(--color-neutral-200);"></div>
+                  <button type="button" id="add-timing-btn" class="btn btn-secondary btn-sm" style="display: none; margin-top: 0.5rem;">
+                    + Add Another Timing Slot
+                  </button>
+                </div>
+
+                <div class="flex gap-3" style="flex-wrap: wrap;">
+                  <div class="form-group" style="flex: 1; min-width: 140px;">
+                    <label for="med-start-date" class="form-label required" data-i18n="form_start_date">Start Date</label>
+                    <input type="date" id="med-start-date" class="form-control" required>
+                  </div>
+                  <div class="form-group" style="flex: 1; min-width: 140px;">
+                    <label for="med-end-date" class="form-label" data-i18n="form_end_date">End Date (Optional)</label>
+                    <input type="date" id="med-end-date" class="form-control">
+                  </div>
+                </div>
+
+                <div class="flex gap-3" style="flex-wrap: wrap;">
+                  <div class="form-group" style="flex: 1; min-width: 140px;">
+                    <label for="med-reminder-interval" class="form-label" data-i18n="form_interval">Reminder Interval</label>
+                    <select id="med-reminder-interval" class="form-control">
+                      <option value="5">Every 5 Minutes</option>
+                      <option value="10" selected>Every 10 Minutes</option>
+                      <option value="15">Every 15 Minutes</option>
+                    </select>
+                  </div>
+                  <div class="form-group" style="flex: 1; min-width: 140px;">
+                    <label for="med-deadline" class="form-label" data-i18n="form_deadline">Confirmation Deadline</label>
+                    <select id="med-deadline" class="form-control">
+                      <option value="30">30 Minutes</option>
+                      <option value="60" selected>60 Minutes (Default)</option>
+                      <option value="120">2 Hours</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="med-instructions" class="form-label" data-i18n="form_instructions">Instructions & Precautions</label>
+                  <textarea id="med-instructions" class="form-control" rows="2" placeholder="e.g. Take after meal with water"></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%;" data-i18n="btn_save_schedule">
+                  Save Medication Schedule
+                </button>
+              </form>
+            </div>
+
+            <!-- Right: Real-Time Preview Card -->
+            <div>
+              <div class="card" style="position: sticky; top: 90px;">
+                <div class="card-header">
+                  <h4>Schedule Live Preview</h4>
+                  <span class="badge badge-taken">Preview</span>
+                </div>
+
+                <div class="med-card" style="margin-bottom: 1.5rem; border: 1.5px dashed var(--color-primary);">
+                  <div class="med-card-header">
+                    <div>
+                      <h4 id="preview-name" class="font-bold">Medicine Name</h4>
+                      <span id="preview-instructions" class="text-xs text-muted">Take as instructed</span>
+                    </div>
+                    <span id="preview-type" class="med-type-pill">Tablet</span>
+                  </div>
+                  <div id="preview-dosage" class="text-sm font-semibold">Dosage: 1 Dose</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- VIEW 04: OCR PRESCRIPTION SCANNER -->
+        <!-- ============================================== -->
+        <section class="view-section" id="ocr-view">
+          
+          <div class="warning-banner">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink: 0;">
+              <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+              <line x1="12" y1="9" x2="12" y2="13"></line>
+              <line x1="12" y1="17" x2="12.01" y2="17"></line>
+            </svg>
+            <div>
+              <strong data-i18n="ocr_verify_warning">Please verify all details against your original prescription before confirming.</strong>
+            </div>
+          </div>
+
+          <!-- Quick Test Prescriptions -->
+          <div class="card" style="margin-bottom: 1.5rem; background-color: var(--color-primary-subtle); border-color: var(--color-primary-light);">
+            <div class="flex justify-between items-center" style="margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.5rem;">
+              <h4 style="font-size: 0.95rem; color: var(--color-primary-hover);">
+                Sample Prescriptions (Click to Test OCR Extraction)
+              </h4>
+            </div>
+            <div id="ocr-sample-buttons" class="flex gap-2" style="flex-wrap: wrap;"></div>
+          </div>
+
+          <!-- Drag and Drop Scanner Zone -->
+          <div class="scanner-dropzone" id="ocr-dropzone">
+            <input type="file" id="prescription-file-input" accept="image/*" style="display: none;">
+            <input type="file" id="prescription-camera-input" accept="image/*" capture="environment" style="display: none;">
+            
+            <svg class="scanner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+            <h3 style="margin-bottom: 0.5rem;" data-i18n="ocr_title">Upload or Take Photo of Prescription</h3>
+            <p class="text-sm text-muted" style="max-width: 480px; margin: 0 auto 1.25rem;" data-i18n="ocr_subtitle">
+              Upload a clear photo of your prescription. Tesseract.js will detect the medicines for you to review and confirm.
+            </p>
+            <div class="flex gap-2 justify-center" style="flex-wrap: wrap;" onclick="event.stopPropagation();">
+              <button type="button" class="btn btn-primary btn-sm" onclick="document.getElementById('prescription-file-input').click()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                Choose Image File
+              </button>
+              <button type="button" class="btn btn-secondary btn-sm" id="ocr-camera-btn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                Camera Photo
+              </button>
+            </div>
+          </div>
+
+          <!-- OCR Progress Bar -->
+          <div id="ocr-progress-zone" style="display: none; margin-top: 1.5rem;" class="card">
+            <div class="flex justify-between items-center text-xs font-semibold" style="margin-bottom: 0.5rem;">
+              <span id="ocr-progress-text">Reading prescription text...</span>
+              <span class="badge badge-pending">OCR Active</span>
+            </div>
+            <div style="height: 8px; background-color: var(--color-neutral-200); border-radius: var(--radius-full); overflow: hidden;">
+              <div id="ocr-progress-bar" style="height: 100%; width: 0%; background: linear-gradient(90deg, var(--color-primary), var(--color-teal)); transition: width 0.2s ease;"></div>
+            </div>
+          </div>
+
+          <!-- Uploaded Image Preview Frame -->
+          <div id="ocr-preview-card" class="card" style="display: none; margin-top: 1.5rem;">
+            <div class="card-header">
+              <h4 class="font-bold">Prescription Preview</h4>
+              <button class="btn btn-secondary btn-sm" onclick="document.getElementById('ocr-preview-card').style.display='none'">Dismiss</button>
+            </div>
+            <div style="max-height: 260px; overflow: hidden; border-radius: var(--radius-md); text-align: center; background-color: var(--color-neutral-100);">
+              <img id="ocr-preview-img" src="" alt="Prescription preview" style="max-height: 260px; object-fit: contain; margin: 0 auto;">
+            </div>
+          </div>
+
+          <!-- Multi-Medicine Candidate Review Container -->
+          <div id="ocr-candidate-sandbox" style="display: none; margin-top: 2rem;">
+            <div class="section-heading-row">
+              <div>
+                <h3>Review Detected Medicines</h3>
+                <p class="text-xs text-muted">Verify or edit each medicine card before confirming. Nothing is saved until you confirm.</p>
+              </div>
+              <button type="button" class="btn btn-secondary btn-sm" id="ocr-add-candidate-btn">
+                + Add Another Medicine Card
+              </button>
+            </div>
+
+            <!-- Dynamic Container for Multiple Extracted Medicine Cards -->
+            <div id="ocr-candidate-cards" style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.5rem;"></div>
+
+            <!-- Collapsible Raw OCR Text Drawer -->
+            <details class="card" style="margin-bottom: 1.5rem; cursor: pointer;">
+              <summary class="font-bold text-xs text-muted" style="user-select: none;">
+                View Raw Extracted Text
+              </summary>
+              <div style="margin-top: 0.75rem;">
+                <textarea id="ocr-raw-text" class="form-control" rows="4" readonly style="font-family: var(--font-family-mono); font-size: 0.8rem; background-color: var(--color-neutral-50);"></textarea>
+              </div>
+            </details>
+
+            <div class="flex gap-3">
+              <button type="button" class="btn btn-teal btn-lg" id="confirm-ocr-candidates-btn" data-i18n="btn_confirm_candidates">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Confirm and Add All
+              </button>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ============================================== -->
+        <!-- VIEW 05: MEDICATION HISTORY & REPORTS -->
+        <!-- ============================================== -->
+        <section class="view-section" id="history-view">
+          
+          <div class="stats-grid" style="margin-bottom: 1.5rem;">
+            <div class="stat-card">
+              <div class="stat-icon primary">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                </svg>
+              </div>
+              <div class="stat-info">
+                <div class="stat-value" id="report-total-doses">0</div>
+                <div class="stat-label">Total Scheduled</div>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon success">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </div>
+              <div class="stat-info">
+                <div class="stat-value" id="report-taken-doses" style="color: var(--color-success-hover);">0</div>
+                <div class="stat-label">Taken Doses</div>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon" style="background-color: var(--color-danger-light); color: var(--color-danger);">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="15" y1="9" x2="9" y2="15"></line>
+                  <line x1="9" y1="9" x2="15" y2="15"></line>
+                </svg>
+              </div>
+              <div class="stat-info">
+                <div class="stat-value" id="report-missed-doses" style="color: var(--color-danger);">0</div>
+                <div class="stat-label">Missed Doses</div>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon teal">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+              </div>
+              <div class="stat-info">
+                <div class="stat-value" id="report-adherence-pct" style="color: var(--color-teal);">100%</div>
+                <div class="stat-label">Adherence Score</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- History Table & Filter Toolbar Card -->
+          <div class="card" style="margin-bottom: 1.25rem;">
+            <div class="flex justify-between items-center" style="flex-wrap: wrap; gap: 1rem;">
+              <div class="flex gap-2">
+                <button class="btn btn-primary btn-sm history-filter-btn" data-filter="all">All Records</button>
+                <button class="btn btn-secondary btn-sm history-filter-btn" data-filter="taken">Taken</button>
+                <button class="btn btn-secondary btn-sm history-filter-btn" data-filter="pending">Pending</button>
+                <button class="btn btn-secondary btn-sm history-filter-btn" data-filter="missed">Missed</button>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <select id="history-date-range" class="form-control" style="max-width: 150px; font-size: 0.8125rem; padding: 0.35rem 0.65rem;">
+                  <option value="all">All Time</option>
+                  <option value="today">Today Only</option>
+                  <option value="7days">Last 7 Days</option>
+                </select>
+
+                <button class="btn btn-secondary btn-sm" id="export-history-csv-btn" title="Download report as CSV">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                  </svg>
+                  Export CSV
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Responsive Data Table -->
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Medicine Name</th>
+                  <th>Dosage</th>
+                  <th>Scheduled Date & Time</th>
+                  <th>Recorded Intake</th>
+                  <th>Status</th>
+                  <th>Verification</th>
+                  <th style="text-align: right;">SHA-256 Hash</th>
+                </tr>
+              </thead>
+              <tbody id="history-table-body">
+                <!-- Dynamically populated by history.js -->
+              </tbody>
+            </table>
+          </div>
+
+          <div id="history-empty-notice" class="text-center text-muted" style="display: none; padding: 3rem 0;">
+            No historical medication records found.
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- VIEW 06: CAREGIVER HUB -->
+        <!-- ============================================== -->
+        <section class="view-section" id="caregiver-view">
+          
+          <div class="card" style="margin-bottom: 1.5rem; background: linear-gradient(135deg, var(--color-white) 0%, var(--color-teal-light) 100%);">
+            <div class="flex justify-between items-center flex-wrap gap-3">
+              <div>
+                <h3 style="font-size: 1.25rem; font-weight: 700; margin: 0 0 0.25rem;">Caregiver Monitoring Hub</h3>
+                <p class="text-xs text-muted" style="margin: 0;">
+                  Caregivers can monitor patient schedules and adherence strictly upon patient authorization.
+                </p>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <button type="button" class="btn btn-secondary btn-sm" onclick="CaregiverEngine.switchPerspective('patient')">
+                  Patient View
+                </button>
+                <button type="button" class="btn btn-primary btn-sm" onclick="CaregiverEngine.switchPerspective('caregiver')">
+                  Caregiver View
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- SUB-VIEW 1: PATIENT PERSPECTIVE -->
+          <div id="patient-caregiver-section">
+            <div class="card" style="margin-bottom: 1.5rem; border: 1px solid var(--color-primary-light); background: #f0f9ff;">
+              <div class="flex justify-between items-center flex-wrap gap-3">
+                <div>
+                  <h4 style="font-size: 1.05rem; font-weight: 700; margin: 0 0 0.25rem; color: var(--color-primary-hover);">
+                    Your Unique Patient Connection Code
+                  </h4>
+                  <p class="text-xs text-muted" style="margin: 0;">
+                    Share this code with your family member or caregiver to let them send a connection request.
+                  </p>
+                </div>
+                <div class="flex items-center gap-3">
+                  <div style="background: var(--color-white); border: 2px dashed var(--color-primary); padding: 0.4rem 1rem; border-radius: var(--radius-md); font-family: var(--font-family-mono); font-size: 1.15rem; font-weight: 800; color: var(--color-primary);">
+                    <span id="display-patient-code">PAT-9421-AP</span>
+                  </div>
+                  <button type="button" class="btn btn-primary btn-sm" id="copy-patient-code-btn">
+                    Copy Code 📋
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="card" style="margin-bottom: 1.5rem;">
+              <div class="card-header">
+                <h3>Pending Connection Requests</h3>
+              </div>
+              <div id="patient-pending-caregiver-requests" style="margin-top: 1rem;"></div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <h3>Authorized Caregivers</h3>
+              </div>
+              <div id="patient-approved-caregivers-list" style="margin-top: 1rem;"></div>
+            </div>
+          </div>
+
+          <!-- SUB-VIEW 2: CAREGIVER PERSPECTIVE -->
+          <div id="caregiver-monitoring-section" style="display: none;">
+            <div class="card" style="margin-bottom: 1.5rem;">
+              <div class="card-header">
+                <h3>Connect to a Patient</h3>
+              </div>
+              <div style="margin-top: 0.75rem;">
+                <div class="flex gap-2 flex-wrap items-center">
+                  <div style="flex: 1; min-width: 260px;">
+                    <input type="text" id="caregiver-patient-code-input" class="form-control" placeholder="Enter patient connection code (e.g. PAT-9421-AP)">
+                  </div>
+                  <button type="button" class="btn btn-primary" id="btn-send-caregiver-request">
+                    Send Request ↗
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div id="caregiver-patients-container"></div>
+          </div>
+
+        </section>
+
+        <!-- ============================================== -->
+        <!-- VIEW 07: PHARMACY ACCESS -->
+        <!-- ============================================== -->
+        <section class="view-section" id="pharmacy-view">
+          
+          <div class="card" style="background: #fffbeb; border-left: 4px solid #f59e0b; margin-bottom: 1.5rem; padding: 1rem 1.25rem;">
+            <p class="text-xs text-muted" style="margin: 0; line-height: 1.5;">
+              <strong style="color: #92400e;">Pharmacy Notice:</strong> MediTrack is an adherence tracking platform and does not sell or dispense medications. Online ordering is available on the official sites of licensed partners. Links open official partner websites in a new tab.
+            </p>
+          </div>
+
+          <!-- Quick Refill List from Active Medicines -->
+          <div class="card" style="margin-bottom: 1.5rem;">
+            <div class="card-header">
+              <h3 style="font-size: 1.15rem;">Quick Medicine Refill Search</h3>
+            </div>
+            <div id="pharmacy-refill-list" style="margin-top: 0.75rem;"></div>
+          </div>
+
+          <!-- Custom Medicine Search Input -->
+          <div class="card" style="margin-bottom: 1.75rem;">
+            <div class="card-header">
+              <h3 style="font-size: 1.15rem;">Search Medicine on Official Partner Sites</h3>
+            </div>
+            <form id="pharmacy-custom-search-form" style="margin-top: 0.75rem;">
+              <div class="flex gap-2 flex-wrap items-center">
+                <div style="flex: 2; min-width: 200px;">
+                  <input type="text" id="pharmacy-custom-search-input" class="form-control" placeholder="Enter medicine name (e.g. Paracetamol, Metformin)">
+                </div>
+                <div style="flex: 1; min-width: 140px;">
+                  <select id="pharmacy-partner-select" class="form-control">
+                    <option value="apollo">Apollo Pharmacy</option>
+                    <option value="medplus">MedPlus Mart</option>
+                    <option value="tata1mg">Tata 1mg</option>
+                    <option value="pharmeasy">PharmEasy</option>
+                    <option value="netmeds">Netmeds</option>
+                  </select>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                  Search Pharmacy ↗
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- 5 Official Verified Pharmacies Grid -->
+          <div class="section-heading-row">
+            <div>
+              <h3 data-i18n="pharmacy_title">Trusted Online Pharmacies</h3>
+              <p class="text-xs text-muted">Direct links to official licensed pharmacy services across India</p>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem;" id="pharmacy-directory-grid">
+            <!-- Dynamically populated by pharmacy.js -->
+          </div>
+
+        </section>
+
+        <!-- ============================================== -->
+        <!-- VIEW 08: VERIFICATION HUB -->
+        <!-- ============================================== -->
+        <section class="view-section" id="blockchain-view">
+          
+          <div class="card" style="margin-bottom: 1.5rem; background: #f0fdf4; border-left: 4px solid var(--color-success); padding: 1.25rem;">
+            <h4 style="margin: 0 0 0.25rem; color: #166534; font-size: 1rem;">Cryptographic Adherence Verification</h4>
+            <p class="text-xs text-muted" style="margin: 0; line-height: 1.5;">
+              Every dose confirmation produces a deterministic SHA-256 event digest that can be anchored to Ethereum Sepolia. This cryptographically proves that the recorded timestamp and status have not been altered or backdated. No personal names or prescriptions are ever put on-chain.
+            </p>
+          </div>
+
+          <!-- Web3 Wallet Connection Card -->
+          <div class="card" style="margin-bottom: 1.75rem;">
+            <div class="card-header">
+              <div>
+                <h3 style="font-size: 1.15rem; font-weight: 700;">Ethereum Sepolia Connection</h3>
+                <span class="text-xs text-muted">Network: Sepolia Testnet (Chain ID 11155111)</span>
+              </div>
+              <span id="network-badge-display" class="badge badge-secondary">Disconnected</span>
+            </div>
+
+            <div style="margin-top: 1rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem;">
+              <div style="background: var(--color-neutral-50); border: 1px solid var(--color-neutral-200); border-radius: var(--radius-sm); padding: 0.85rem;">
+                <span class="text-xs font-bold text-muted" style="display: block; margin-bottom: 0.25rem;">CONNECTED WALLET</span>
+                <span id="wallet-address-display" class="font-mono text-sm" style="font-weight: 600;">Not Connected</span>
+              </div>
+              <div style="background: var(--color-neutral-50); border: 1px solid var(--color-neutral-200); border-radius: var(--radius-sm); padding: 0.85rem;">
+                <span class="text-xs font-bold text-muted" style="display: block; margin-bottom: 0.25rem;">TARGET CONTRACT</span>
+                <span class="font-mono text-xs" style="color: var(--color-primary); word-break: break-all;">
+                  config/config.js
+                </span>
+              </div>
+            </div>
+
+            <div class="flex gap-2 items-center" style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--color-neutral-200);">
+              <button class="btn btn-primary btn-sm" id="connect-wallet-btn">
+                Connect MetaMask
+              </button>
+              <button class="btn btn-secondary btn-sm" id="run-tamper-demo-btn" onclick="BlockchainService.verifyLocalEventIntegrity && BlockchainService.renderEventSubmissionQueue()">
+                Check Record Integrity
+              </button>
+            </div>
+          </div>
+
+          <!-- Event Submission Queue with 4 Verification Statuses -->
+          <div class="card" style="margin-bottom: 1.75rem;">
+            <div class="card-header">
+              <div>
+                <h3 style="font-size: 1.15rem; font-weight: 700;">Recorded Dose Events & Cryptographic Proofs</h3>
+                <p class="text-xs text-muted">Statuses: VERIFIED, MODIFIED OR INVALID, NOT YET RECORDED, PENDING VERIFICATION</p>
+              </div>
+              <button class="btn btn-secondary btn-sm" onclick="BlockchainService.renderEventSubmissionQueue()">
+                Refresh
+              </button>
+            </div>
+
+            <div id="blockchain-event-queue" style="margin-top: 1rem;"></div>
+          </div>
+
+          <!-- Manual Hash Query Tool -->
+          <div class="card">
+            <div class="card-header">
+              <h3 style="font-size: 1.15rem; font-weight: 700;">Query Hash on Smart Contract</h3>
+            </div>
+            <div style="margin-top: 0.75rem;">
+              <div class="flex gap-2 flex-wrap items-center">
+                <div style="flex: 1; min-width: 260px;">
+                  <input type="text" id="manual-verify-hash-input" class="form-control" placeholder="Paste 64-character SHA-256 hash (e.g. 0x...)" style="font-family: var(--font-family-mono); font-size: 0.8125rem;">
+                </div>
+                <button type="button" class="btn btn-primary" id="verify-hash-btn">
+                  Query Contract 🔍
+                </button>
+              </div>
+              <div id="manual-verify-result" style="margin-top: 1rem; display: none;"></div>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ============================================== -->
+        <!-- VIEW 09: LANGUAGE SETTINGS -->
+        <!-- ============================================== -->
+        <section class="view-section" id="language-view">
+          <div class="card" style="max-width: 720px;">
+            <div class="card-header">
+              <h3 data-i18n="nav_language">Language Settings</h3>
+              <span class="badge badge-taken">3 Languages</span>
+            </div>
+
+            <p class="text-sm text-muted" style="margin-bottom: 1.5rem;">
+              Select your preferred language. The entire application updates instantly without reloading.
+            </p>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.75rem;">
+              <div class="lang-card-option active-lang" data-lang="en">
+                <h4 class="font-bold">English</h4>
+                <div class="text-xs text-muted" style="margin-top: 0.5rem;">"I have taken this medicine"</div>
+              </div>
+
+              <div class="lang-card-option" data-lang="kn">
+                <h4 class="font-bold">ಕನ್ನಡ</h4>
+                <div class="text-xs text-muted" style="margin-top: 0.5rem;">"ನಾನು ಈ ಔಷಧಿಯನ್ನು ತೆಗೆದುಕೊಂಡಿದ್ದೇನೆ"</div>
+              </div>
+
+              <div class="lang-card-option" data-lang="hi">
+                <h4 class="font-bold">हिंदी</h4>
+                <div class="text-xs text-muted" style="margin-top: 0.5rem;">"मैंने यह दवाई ले ली है"</div>
+              </div>
+            </div>
+
+            <div class="form-group" style="max-width: 320px;">
+              <label for="language-select" class="form-label font-bold">Select Active Language</label>
+              <select id="language-select" class="form-control">
+                <option value="en">English</option>
+                <option value="kn">ಕನ್ನಡ (Kannada)</option>
+                <option value="hi">हिंदी (Hindi)</option>
+              </select>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- VIEW 10: USER PROFILE -->
+        <!-- ============================================== -->
+        <section class="view-section" id="profile-view">
+          <div class="card" style="max-width: 680px;">
+            <div class="card-header">
+              <h3>Profile & Medical Notes</h3>
+            </div>
+
+            <form id="profile-form">
+              <div class="flex gap-3" style="flex-wrap: wrap;">
+                <div class="form-group" style="flex: 1; min-width: 180px;">
+                  <label class="form-label">Full Name</label>
+                  <input type="text" class="form-control" value="Patient User" id="profile-name">
+                </div>
+                <div class="form-group" style="flex: 1; min-width: 180px;">
+                  <label class="form-label">Email Address</label>
+                  <input type="email" class="form-control" value="user@example.com" id="profile-email" disabled>
+                </div>
+              </div>
+
+              <div class="flex gap-3" style="flex-wrap: wrap;">
+                <div class="form-group" style="flex: 1; min-width: 120px;">
+                  <label class="form-label">Age</label>
+                  <input type="number" class="form-control" value="28" id="profile-age">
+                </div>
+                <div class="form-group" style="flex: 1; min-width: 120px;">
+                  <label class="form-label">Blood Group</label>
+                  <input type="text" class="form-control" value="O+" id="profile-blood">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Known Allergies & Clinical Notes</label>
+                <textarea class="form-control" rows="2" id="profile-notes">Regular blood pressure check required.</textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary" data-i18n="btn_save">
+                Save Changes
+              </button>
+            </form>
+          </div>
+        </section>
+
+      </main>
+
+    </div>
+  </div>
+
+  <!-- Reusable Modal: Active Dose Ingestion Reminder -->
+  <div class="modal-overlay" id="dose-reminder-modal">
+    <div class="modal" style="max-width: 520px; border-top: 5px solid var(--color-primary);">
+      <div class="modal-header">
+        <div class="flex items-center gap-2">
+          <div class="stat-icon primary" style="width: 38px; height: 38px;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg>
+          </div>
+          <div>
+            <h3 style="font-size: 1.2rem;" data-i18n="modal_due_title">Medication Dose Due</h3>
+            <span class="text-xs text-muted" data-i18n="modal_due_subtitle">Please confirm your dose intake</span>
+          </div>
+        </div>
+        <button class="toast-close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div style="background-color: var(--color-primary-subtle); padding: 1.25rem; border-radius: var(--radius-md); margin-bottom: 1.25rem; border: 1px solid var(--color-primary-light);">
+          <div class="flex justify-between items-start" style="margin-bottom: 0.5rem;">
+            <div>
+              <h2 id="modal-dose-med-name" style="font-size: 1.4rem; color: var(--color-neutral-900);">Medicine Name</h2>
+              <span id="modal-dose-amount" class="text-sm font-semibold" style="color: var(--color-primary-hover);">Dosage Info</span>
+            </div>
+            <div class="dose-time-box" style="background-color: var(--color-white);">
+              <span class="dose-time-label">Scheduled</span>
+              <span id="modal-dose-time" style="font-size: 0.85rem;">09:00 AM</span>
+            </div>
+          </div>
+          <div class="text-xs text-muted">
+            <strong data-i18n="modal_instruction_label">Instructions:</strong> <span id="modal-dose-instructions">Take with a glass of water.</span>
+          </div>
+        </div>
+
+        <!-- The Essential Checkbox Ingestion Zone -->
+        <div style="margin-bottom: 1.5rem;">
+          <label class="checkbox-ack-container" style="padding: 1rem 1.25rem; background-color: var(--color-success-light); border-color: var(--color-success);">
+            <input type="checkbox" id="modal-ack-checkbox" style="width: 1.4rem; height: 1.4rem;">
+            <span class="checkbox-ack-label" style="font-size: 1rem; color: var(--color-success-hover);" data-i18n="checkbox_label">
+              I have taken this medicine
+            </span>
+          </label>
+        </div>
+
+        <!-- Snooze Cadence Zone -->
+        <div style="margin-bottom: 1rem;">
+          <label class="text-xs font-bold text-muted" style="display: block; margin-bottom: 0.35rem;" data-i18n="modal_need_time">
+            Need more time? Snooze reminder (dose remains pending):
+          </label>
+          <div class="flex gap-2">
+            <button type="button" class="btn btn-secondary btn-sm flex-1" id="modal-snooze-5">5 Mins</button>
+            <button type="button" class="btn btn-secondary btn-sm flex-1" id="modal-snooze-10">10 Mins</button>
+            <button type="button" class="btn btn-secondary btn-sm flex-1" id="modal-snooze-15">15 Mins</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer flex justify-between items-center">
+        <button type="button" class="btn btn-outline btn-sm" id="modal-missed-btn" style="color: var(--color-danger); border-color: var(--color-danger);" data-i18n="btn_missed">
+          Mark as Missed
+        </button>
+        <button type="button" class="btn btn-secondary btn-sm" id="modal-dismiss-btn" data-i18n="btn_dismiss">
+          Dismiss Alert
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reusable Modal: Edit Medication -->
+  <div class="modal-overlay" id="edit-med-modal">
+    <div class="modal" style="max-width: 620px;">
+      <div class="modal-header">
+        <h3 style="font-size: 1.15rem;">Edit Medication & Schedule</h3>
+        <button class="toast-close" data-dismiss="modal">&times;</button>
+      </div>
+      <form id="edit-med-form">
+        <div class="modal-body">
+          <input type="hidden" id="edit-med-id">
+
+          <div class="form-group">
+            <label for="edit-med-name" class="form-label required">Medicine Name</label>
+            <input type="text" id="edit-med-name" class="form-control" required>
+          </div>
+
+          <div class="flex gap-3" style="flex-wrap: wrap;">
+            <div class="form-group" style="flex: 1; min-width: 140px;">
+              <label for="edit-med-dosage" class="form-label required">Dosage</label>
+              <input type="text" id="edit-med-dosage" class="form-control" required>
+            </div>
+            <div class="form-group" style="flex: 1; min-width: 140px;">
+              <label for="edit-med-type" class="form-label required">Form / Type</label>
+              <select id="edit-med-type" class="form-control">
+                <option value="tablet">Tablet</option>
+                <option value="capsule">Capsule</option>
+                <option value="syrup">Syrup</option>
+                <option value="injection">Injection</option>
+                <option value="drops">Drops</option>
+                <option value="inhaler">Inhaler</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="edit-med-frequency" class="form-label required">Frequency</label>
+            <select id="edit-med-frequency" class="form-control">
+              <option value="once_daily">Once Daily</option>
+              <option value="twice_daily">Twice Daily</option>
+              <option value="thrice_daily">Three Times Daily</option>
+              <option value="custom">Custom Timings</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label required">Dose Timings</label>
+            <div id="edit-timings-container" style="background-color: var(--color-neutral-50); padding: 0.75rem; border-radius: var(--radius-md); border: 1px solid var(--color-neutral-200);"></div>
+            <button type="button" id="edit-add-timing-btn" class="btn btn-secondary btn-sm" style="display: none; margin-top: 0.5rem;">+ Add Timing Slot</button>
+          </div>
+
+          <div class="flex gap-3" style="flex-wrap: wrap;">
+            <div class="form-group" style="flex: 1; min-width: 140px;">
+              <label for="edit-med-start-date" class="form-label required">Start Date</label>
+              <input type="date" id="edit-med-start-date" class="form-control" required>
+            </div>
+            <div class="form-group" style="flex: 1; min-width: 140px;">
+              <label for="edit-med-end-date" class="form-label">End Date</label>
+              <input type="date" id="edit-med-end-date" class="form-control">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="edit-med-instructions" class="form-label">Instructions</label>
+            <textarea id="edit-med-instructions" class="form-control" rows="2"></textarea>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary btn-sm">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Reusable Modal: View Medicine Details -->
+  <div class="modal-overlay" id="med-details-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 style="font-size: 1.15rem;">Medication Specification</h3>
+        <button class="toast-close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body" id="med-details-content"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: External Pharmacy Redirection -->
+  <div class="modal-backdrop" id="pharmacy-redirect-modal" style="display: none;">
+    <div class="modal-card" style="max-width: 520px;">
+      <div class="modal-header">
+        <h3 style="font-size: 1.15rem; margin: 0;">External Pharmacy Redirection</h3>
+        <button class="modal-close" onclick="Modal.close('pharmacy-redirect-modal')" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="text-xs text-muted" style="margin-bottom: 1rem;">
+          You are visiting the official website of our licensed partner pharmacy. Links open in a new tab.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" onclick="Modal.close('pharmacy-redirect-modal')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-container"></div>
+
+  <!-- Supabase Official SDK (CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- Tesseract.js Official OCR Engine (CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+  <!-- Ethers.js Web3 Provider (CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+  <!-- Environment Configuration -->
+  <script src="config/config.js"></script>
+  <!-- App Core & Controllers -->
+  <script src="assets/js/app.js"></script>
+  <script src="assets/js/supabase.js"></script>
+  <script src="assets/js/offline.js"></script>
+  <script src="assets/js/language.js"></script>
+  <script src="assets/js/reminders.js"></script>
+  <script src="assets/js/reports.js"></script>
+  <script src="assets/js/history.js"></script>
+  <script src="assets/js/ocr.js"></script>
+  <script src="assets/js/dashboard.js"></script>
+  <script src="assets/js/medicines.js"></script>
+  <script src="assets/js/pharmacy.js"></script>
+  <script src="assets/js/caregiver.js"></script>
+  <script src="assets/js/blockchain.js"></script>
+</body>
+</html>
